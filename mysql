@@ -1,0 +1,51 @@
+CREATE DATABASE ecommerce_db;
+USE ecommerce_db;
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE blogs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE users ADD email VARCHAR(255) NOT NULL AFTER username;
+
+INSERT INTO users (username, password) VALUES
+('user1', '$2y$10$eWQ1PT0.fwlJHQ4J9gyD4uA5/9aJh1AIuMl4xUj3FLz5Ah5DDMTsC'),
+('user2', '$2y$10$eWQ1PT0.fwlJHQ4J9gyD4uA5/9aJh1AIuMl4xUj3FLz5Ah5DDMTsC'); 
+
+INSERT INTO blogs (title, content, author) VALUES
+('The Rise of Smart Home Devices', 'In recent years, smart home devices have revolutionized the way we interact with our living spaces. From smart thermostats to voice-activated assistants, these gadgets not only enhance convenience but also improve energy efficiency. In this blog post, we explore the top smart home devices of 2024 and how they can simplify your life.', 'Alice Smith'),
+('Top 5 Budget Smartphones of 2024', 'Looking for a new smartphone without breaking the bank? In this article, we’ve compiled a list of the top 5 budget smartphones of 2024. We’ll cover their features, performance, and value for money to help you make an informed choice.', 'John Doe'),
+('Choosing the Right Laptop for Your Needs', 'With so many options available, choosing the right laptop can be overwhelming. Whether you need a laptop for gaming, work, or casual use, this guide will help you identify the features you should consider and recommend the best laptops for various needs.', 'Emma Brown'),
+('The Future of Wearable Technology', 'Wearable technology is evolving rapidly, with new innovations hitting the market regularly. In this blog post, we discuss the latest trends in wearable tech, from fitness trackers to smartwatches, and predict what the future holds for these devices.', 'James Lee'),
+('10 Essential Accessories for Your Smartphone', 'Enhance your smartphone experience with these 10 essential accessories. From screen protectors to portable chargers, we’ll guide you through the must-have items that every smartphone user should consider to protect and enhance their device.', 'Emily White');
+
+SELECT * FROM blogs ORDER BY created_at DESC;
+ALTER TABLE blogs
+ADD COLUMN detail TEXT AFTER content;
+INSERT INTO blogs (title, content, author, detail) VALUES
+('The Rise of Smart Home Devices', 'In recent years, smart home devices have revolutionized the way we interact with our living spaces. From smart thermostats to voice-activated assistants, these gadgets not only enhance convenience but also improve energy efficiency. In this blog post, we explore the top smart home devices of 2024 and how they can simplify your life.', 'Alice Smith', 'Smart home devices are designed to provide comfort, convenience, and security. They can be controlled remotely and can interact with one another. In this detailed guide, we look into specific devices such as smart lights, smart locks, and home automation systems.'),
+('Top 5 Budget Smartphones of 2024', 'Looking for a new smartphone without breaking the bank? In this article, we’ve compiled a list of the top 5 budget smartphones of 2024. We’ll cover their features, performance, and value for money to help you make an informed choice.', 'John Doe', 'This blog provides a comprehensive comparison of budget smartphones available in 2024, including their specifications, camera performance, and user experience. We’ll also share tips on what to look for when buying a budget smartphone.'),
+('Choosing the Right Laptop for Your Needs', 'With so many options available, choosing the right laptop can be overwhelming. Whether you need a laptop for gaming, work, or casual use, this guide will help you identify the features you should consider and recommend the best laptops for various needs.', 'Emma Brown', 'This detailed guide discusses factors to consider when purchasing a laptop, such as processor type, RAM size, storage options, and battery life. We also provide recommendations for different use cases like gaming, office work, and students.'),
+('The Future of Wearable Technology', 'Wearable technology is evolving rapidly, with new innovations hitting the market regularly. In this blog post, we discuss the latest trends in wearable tech, from fitness trackers to smartwatches, and predict what the future holds for these devices.', 'James Lee', 'In this article, we delve into the future of wearables, including advancements in health monitoring, integration with AI, and the impact on fitness and lifestyle. We explore how wearables are becoming essential tools for personal health management.'),
+('10 Essential Accessories for Your Smartphone', 'Enhance your smartphone experience with these 10 essential accessories. From screen protectors to portable chargers, we’ll guide you through the must-have items that every smartphone user should consider to protect and enhance their device.', 'Emily White', 'This blog discusses the top accessories every smartphone user should have, providing in-depth reviews of each accessory and how they can enhance the smartphone experience. Accessories discussed include cases, chargers, and audio equipment.');
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    image VARCHAR(255) NOT NULL -- Ensure this column holds just the image filename
+);
+INSERT INTO products (name, description, price, image) VALUES
+('Smartphone', 'Latest model smartphone with high-resolution camera.', 699.99, 'product1.jpeg'),
+('Laptop', 'High-performance laptop for gaming and productivity.', 999.99, 'product2.jpeg'),
+('Headphones', 'Noise-canceling headphones with excellent sound quality.', 199.99, 'product3.jpeg'),
+('Smartwatch', 'Stylish smartwatch with fitness tracking features.', 249.99, 'product4.jpeg'),
+('Tablet', 'Portable tablet with powerful performance and long battery life.', 499.99, 'product5.jpeg');
